@@ -175,7 +175,7 @@ bintray {
 
     configurations = ['archives']
     pkg {
-        repo = "report"
+        repo = "business"
         name = ARTIFACT_ID //项目名称
         websiteUrl = siteUrl
         vcsUrl = gitUrl
