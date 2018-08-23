@@ -1,4 +1,4 @@
-def VERSION = '1.2'
+def VERSION = '1.3'
 def ARTIFACT_ID = 'imexporter'
 def GROUP_ID = 'top.jfunc.report'
 def TYPE = 'jar'
@@ -98,8 +98,9 @@ tasks.withType(JavaCompile) {
 }
 
 
-def gitUrl = 'https://gitee.com/xxssyyyyssxx/imexporter.git'
-def siteUrl = 'https://gitee.com/xxssyyyyssxx/imexporter'
+def gitUrl    = 'https://gitee.com/xxssyyyyssxx/imexporter.git'
+def siteUrl   = 'https://gitee.com/xxssyyyyssxx/imexporter'
+def REPO_NAME = 'business'
 
 install {
     repositories.mavenInstaller {
@@ -174,7 +175,7 @@ bintray {
 
     configurations = ['archives']
     pkg {
-        repo = "business"
+        repo = REPO_NAME
         name = ARTIFACT_ID //项目名称
         websiteUrl = siteUrl
         vcsUrl = gitUrl
