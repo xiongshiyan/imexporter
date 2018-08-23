@@ -3,6 +3,9 @@ def ARTIFACT_ID = 'imexporter'
 def GROUP_ID = 'top.jfunc.report'
 def TYPE = 'jar'
 def DESCRIPTION = 'some utils to handle excel and export data to txt or excel and do more things as you want'
+def gitUrl    = 'https://gitee.com/xxssyyyyssxx/imexporter.git'
+def siteUrl   = 'https://gitee.com/xxssyyyyssxx/imexporter'
+def REPO_NAME = 'business'
 
 group GROUP_ID
 version VERSION
@@ -100,10 +103,6 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-
-def gitUrl    = 'https://gitee.com/xxssyyyyssxx/imexporter.git'
-def siteUrl   = 'https://gitee.com/xxssyyyyssxx/imexporter'
-def REPO_NAME = 'business'
 
 install {
     repositories.mavenInstaller {
