@@ -5,7 +5,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.ComparatorUtils;
 import org.apache.commons.collections.comparators.ComparableComparator;
 import org.apache.commons.collections.comparators.ComparatorChain;
-import org.apache.commons.lang.StringUtils;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -13,6 +12,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import top.jfunc.common.utils.StrUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,7 +94,7 @@ public class ExcelUtil{
      */
     private static Object getCellValue(Cell cell){
         if(cell == null
-                || (cell.getCellType() == Cell.CELL_TYPE_STRING && StringUtils.isBlank(cell.getStringCellValue()))){
+                || (cell.getCellType() == Cell.CELL_TYPE_STRING && StrUtil.isBlank(cell.getStringCellValue()))){
             return null;
         }
         int cellType = cell.getCellType();
@@ -316,7 +316,7 @@ public class ExcelUtil{
                             }
                         } else{
                             // 其它数据类型都当作字符串简单处理
-                            String empty = StringUtils.EMPTY;
+                            String empty = "";
                             ExcelCell anno = field.getAnnotation(ExcelCell.class);
                             if(anno != null){
                                 empty = anno.defaultValue();
@@ -446,7 +446,7 @@ public class ExcelUtil{
                             for(int i = 0; i < count; i++){
                                 Cell cell = row.getCell(cellIndex);
                                 String errMsg = validateCell(cell, field, cellIndex);
-                                if(StringUtils.isBlank(errMsg)){
+                                if(StrUtil.isBlank(errMsg)){
                                     value[i] = getCellValue(cell);
                                 } else{
                                     log.append(errMsg);
@@ -460,7 +460,7 @@ public class ExcelUtil{
                         } else{
                             Cell cell = row.getCell(cellIndex);
                             String errMsg = validateCell(cell, field, cellIndex);
-                            if(StringUtils.isBlank(errMsg)){
+                            if(StrUtil.isBlank(errMsg)){
                                 Object value = null;
                                 // 处理特殊情况,Excel中的String,转换成Bean的Date
                                 if(field.getType().equals(Date.class) && cell.getCellType() == Cell.CELL_TYPE_STRING){
@@ -479,13 +479,13 @@ public class ExcelUtil{
                                     // 处理特殊情况,excel的value为String,且bean中为其他,且defaultValue不为空,那就=defaultValue
                                     ExcelCell annoCell = field.getAnnotation(ExcelCell.class);
                                     if(value instanceof String && !field.getType().equals(String.class)
-                                            && StringUtils.isNotBlank(annoCell.defaultValue())){
+                                            && StrUtil.isNotBlank(annoCell.defaultValue())){
                                         value = annoCell.defaultValue();
                                     }
                                 }
                                 field.set(t, value);
                             }
-                            if(StringUtils.isNotBlank(errMsg)){
+                            if(StrUtil.isNotBlank(errMsg)){
                                 log.append(errMsg);
                                 log.append(";");
                                 logs.setHasError(true);
@@ -529,7 +529,7 @@ public class ExcelUtil{
         }
         ExcelCell annoCell = field.getAnnotation(ExcelCell.class);
         if(cell == null
-                || (cell.getCellType() == Cell.CELL_TYPE_STRING && StringUtils.isBlank(cell.getStringCellValue()))){
+                || (cell.getCellType() == Cell.CELL_TYPE_STRING && StrUtil.isBlank(cell.getStringCellValue()))){
             if(annoCell != null && annoCell.valid().allowNull() == false){
                 result = MessageFormat.format("the cell [{0}] can not null", columnName);
             };
@@ -540,7 +540,7 @@ public class ExcelUtil{
 
             // 如果類型不在指定範圍內,並且沒有默認值
             if(!(cellTypes.contains(cell.getCellType()))
-                    || StringUtils.isNotBlank(annoCell.defaultValue()) && cell.getCellType() == Cell.CELL_TYPE_STRING){
+                    || StrUtil.isNotBlank(annoCell.defaultValue()) && cell.getCellType() == Cell.CELL_TYPE_STRING){
                 StringBuffer strType = new StringBuffer();
                 for(int i = 0; i < cellTypes.size(); i++){
                     Integer intType = cellTypes.get(i);

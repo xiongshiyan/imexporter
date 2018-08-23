@@ -27,7 +27,7 @@ public class FastExcelTest {
         Map<String,String> map1 = new HashMap<>();map1.put(columns[0],"sd");map1.put(columns[1],"sa");data.add(map1);
         Map<String,String> map2 = new HashMap<>();map2.put(columns[0],"ss");map2.put(columns[1],"sf");data.add(map2);
         FileOutputStream os = new FileOutputStream("C:\\Users\\xiongshiyan\\Desktop\\2.xls");
-        FastExcelExporter.data(data).append((AppendMoreData)null).application("1.xls").os(os).version("1.0").sheetNames("sheet1").headers(headers).columns(columns).export();
+        FastExcelExporter.data(data).append((AppendMoreData[])null).application("1.xls").os(os).version("1.0").sheetNames("sheet1").headers(headers).columns(columns).export();
     }
     @Test
     @Ignore
@@ -46,7 +46,7 @@ public class FastExcelTest {
         Map<String,String> map21 = new HashMap<>();map21.put(columns2[0],"sd");map21.put(columns2[1],"sa");data2.add(map21);
         Map<String,String> map22 = new HashMap<>();map22.put(columns2[0],"ss");map22.put(columns2[1],"sf");data2.add(map22);
         FileOutputStream os = new FileOutputStream("C:\\Users\\xiongshiyan\\Desktop\\2.xls");
-        FastExcelExporter.data(data1,data2).append((AppendMoreData)null).application("2.xls").os(os).version("1.0").sheetNames("sheet1","sheet2").headers(headers1,headers2).columns(columns1,columns2).export();
+        FastExcelExporter.data(data1,data2).append((AppendMoreData[])null).application("2.xls").os(os).version("1.0").sheetNames("sheet1","sheet2").headers(headers1,headers2).columns(columns1,columns2).export();
     }
 
     @Test
