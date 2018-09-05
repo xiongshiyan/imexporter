@@ -182,7 +182,7 @@ public class ExportUtils{
         int rowIndex = 1;
         List<T> list = appendMore.getList(pageNumber , pageSize);
         while(null != list && list.size() >0 ){
-            exportUtils.exportExcel(columns,list,"yyyy-MM-dd HH:ss:mm",rowIndex);
+            exportUtils.exportExcel(columns,list,"yyyy-MM-dd HH:mm:ss",rowIndex);
             rowIndex += list.size();
             list = appendMore.getList(++pageNumber , pageSize);
         }
